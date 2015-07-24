@@ -1,0 +1,79 @@
+name(x, y, w, h)
+name(x, y, w, h) >moveto (x, y)
+
+1:
+title(132, 333, 538, 168)
+tarWalk(left, 393, 172, 134) > (645, 393)
+tarStand(659, 363, 98, 151)
+
+2:a
+buddha(163, 503, 479, 386)
+tarSit(242, 358, 453, 410)
+tarJump(242, 358, 453, 410)
+palmTree1(28, 276, 256, 306)
+palmTree2(463, 200, 148, 171)
+
+3:
+sweepMan(135, 139, 306, 473)
+watchMan(345, 388, 323, 207)
+
+4:
+prince(288, 104, 240, 505)
+jarLeft(127, 312, 174, 225)
+jarRight(515, 312, 174, 225)
+
+5:
+--
+
+6:
+hand(26, 525, 797, 364)
+leafFall(7, 205, 797, 491)
+leaf(24, 448, 695, 281)
+
+7:
+shovel(163, 41, 147, 285)
+fish(527, 78, 70, 254)
+faucet(355, 346, 164, 93)
+filter(280, 408, 157, 174)
+denySignLeft(119, 134, 225, 235)
+denySignRight(438, 134, 225, 235)
+
+8:
+sliderMan(274, 120, 232, 356)
+
+
+-------------------------------- Animation sprite:
+
+0 1 | 2 3 | 4 5
+
+over
+	01232323
+over out
+	0123456
+out
+	456
+
+start 
+midle 
+end
+
+update
+	if(isOver && !isOut)
+		index 0 1 2 3 2 3 2 3
+	if(!isOver && isOut || isOver && isOut)
+		index 0 1 2 3 4 5 6
+	
+	if index = 6:  isOut = false; isOver = false;
+	play(index)
+
+play(index)
+	start
+		0: show
+		1: hide(0) show(1)
+	middle
+		2: hide(1) show(2) hide(3)
+		3: hide(2) show(3)
+	end
+		4: hide(3) show(4)
+		5: hide(4) show(5)
+		6: hide(6)

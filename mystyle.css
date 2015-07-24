@@ -1,0 +1,134 @@
+.body{
+    overflow: hidden;
+}
+.chat {
+    width: 400px;
+}
+.bubble{
+    position: fixed;
+    z-index: 999;
+	  font-family: arial;
+	  color: #545454;
+    border-color: #e75331;
+    border-style:solid;
+    background-color: #d3fdfd;
+    border-radius: 12px;
+    /*box-shadow: 0 0 22px #e75331;*/
+    display: inline-block;
+    padding: 20px 30px;
+    text-align: left;
+    position: relative;
+    vertical-align: top;
+}
+.bubble:after { /* bottom*/
+
+  content:"";
+  position:absolute;
+  bottom:-15px; /* value = - border-top-width - border-bottom-width */
+  left:70%; /* controls horizontal position */
+  border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+  border-style:solid;
+  border-color:#e75331 transparent;
+  /* reduce the damage in FF3.0 */
+  display:block;
+  width:0;
+}
+.bubble.bottomCenter:after {
+  left:45%;
+}
+.bubble.top:after {
+  top:-15px; /* value = - border-top-width - border-bottom-width */
+  right:20px; /* controls horizontal position */
+  bottom:auto;
+  left:45%;
+  border-width:0 15px 15px; /* vary these values to change the angle of the vertex */
+  border-color:#e75331 transparent;
+}
+.bubble.left:after {
+  top:35%; /* controls vertical position */
+  left:-18px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  border-width:10px 15px 10px 0;
+  border-color:transparent #e75331;
+}
+.bubble.right:after {
+  top:35%; /* controls vertical position */
+  right:-18px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  left:auto;
+  border-width:10px 0 10px 15px;
+  border-color:transparent #e75331;
+}
+.bubble.folow:after {
+  left:45%;
+}
+
+.animation{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;   
+}
+.animButton{
+
+}
+.animButton:hover{
+
+}
+.button{
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: arial;
+    color: #5b5b5b;
+    background-color: #feffb8;
+    border-radius: 12px;
+    box-shadow: 0 0 22px #feffb8;
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    vertical-align: top;
+}
+.button:hover{
+   color: #5b5b5b;
+   box-shadow: 0 0 22px #dadb81;
+   background-color: #dadb81; 
+}
+.button:active{
+   color: #ffffff;
+   box-shadow: 0 0 22px #dadb81;
+   background-color: #dadb81; 
+}
+.background{
+    z-index: -1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.me {
+    float: left;   
+    margin: 5px 45px 5px 20px;         
+}
+
+.me::before {
+    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    left: -9px;           
+}
+
+.you {
+    float: right;    
+    margin: 5px 20px 5px 45px;         
+}
+
+.you::before {
+    box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+    right: -9px;    
+}
