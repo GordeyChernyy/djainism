@@ -34,7 +34,7 @@ Line.prototype.draw = function(posY, xStep, yRange, offsetY){
   	for (var x = 0; x <= width; x += width/30) {
   		var y = map(noise(offsetX, offsetY), 0, 1, posY-yRange/2, posY+yRange/2);
     	 
-    	if (x > width-30) {
+    	if (x > width-width/30) {
     		vertex(windowWidth, y);
     	}else{
     		vertex(x, y);
