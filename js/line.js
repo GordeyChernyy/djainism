@@ -31,7 +31,7 @@ Line.prototype.draw = function(posY, xStep, yRange, offsetY){
 	beginShape(); 
 	var offsetX = 0; 
 	beginShape();       
-  	for (var x = 0; x <= width; x += 30) {
+  	for (var x = 0; x <= width; x += width/30) {
   		var y = map(noise(offsetX, offsetY), 0, 1, posY-yRange/2, posY+yRange/2);
     	 
     	if (x > width-30) {
