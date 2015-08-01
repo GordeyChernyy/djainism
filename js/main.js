@@ -18,6 +18,7 @@ PIXI.loader
 var IE = document.all ? true : false;
 if (!IE) document.captureEvents(Event.MOUSEMOVE);
 document.onmousemove = getMouseXY;
+
 var mX = 0;
 var mY = 0;
 function getMouseXY(e) {
@@ -80,6 +81,7 @@ renderer.view.className = "rendererView";
 // ----------------------------------- SETUP
 var bubble;
 function onAssetsLoaded () {
+  
     bubbleSetup();
     loadScenes();
     setupButton();
@@ -164,10 +166,12 @@ function setupButton () {
   buttonL.on('mouseover', function () {buttonL.texture = texButtonLOver; });
   buttonL.on('mouseout', function () {buttonL.texture = texButtonL; });
   buttonL.on('mouseup', changeSceneLeft);
+  buttonL.on('touchend', changeSceneLeft);
 
   buttonR.on('mouseover', function () { buttonR.texture = texButtonROver; });
   buttonR.on('mouseout', function () { buttonR.texture = texButtonR; });
   buttonR.on('mouseup', changeSceneRight);
+  buttonR.on('touchend', changeSceneRight);
 
   stage.addChild(buttonL);
   stage.addChild(buttonR);
