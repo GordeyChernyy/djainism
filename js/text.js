@@ -1,3 +1,4 @@
+
 function bubbleSetup(){
 	var pos = [
 	/*1*/		new Translate(320, 50, 419, 178), 
@@ -21,11 +22,3 @@ function bubbleSetup(){
 	}
 
 } 
-var Translate = function(x, y, w, h){
-  var canvasScaledWidth = (windowHeight*CANVAS_W)/CANVAS_H;
-  var offsetX = (windowWidth - canvasScaledWidth)/2;
-  this.x = (x * canvasScaledWidth)/CANVAS_W+offsetX;
-  this.y = (y * windowHeight)/CANVAS_H; 
-  this.h = (h/CANVAS_H)*windowHeight;
-  this.w = (w/h)*this.h;
-};

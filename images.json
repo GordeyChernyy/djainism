@@ -1,0 +1,7 @@
+{
+  "images": [
+    {"title": "Image One", "url": "image1.jpg"},
+    {"title": "Image Two", "url": "image2.jpg"},
+    {"title": "Image Three", "url": "image3.jpg"}
+  ]
+}

@@ -1,3 +1,13 @@
+button 
+over: tex1
+out: tex2
+
+button 
+over: tex1 tex2
+
+bgColor.set(,,, bgOpacity, bgColSpeed);
+lineColor.set(,,, lineOpacity, lineColSpeed);
+
 name(x, y, w, h)
 name(x, y, w, h) >moveto (x, y)
 
