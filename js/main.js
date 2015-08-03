@@ -78,7 +78,7 @@ renderer.view.className = "rendererView";
     bg = PIXI.Sprite.fromImage('images/assets/img1.png');
     bg.width = windowWidth;
     bg.height = windowHeight;
-    stage.addChild(bg);
+    // stage.addChild(bg);
     var fragmentSrc = res.shader.data;
     filter = new CustomFilter(fragmentSrc);
     filter.uniforms.width.value = windowWidth;
