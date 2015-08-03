@@ -26,9 +26,9 @@ function isMobile() {
     for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
     return false;
 }
-  document.addEventListener("touchstart", onTouchStart, true);
-  document.addEventListener("touchend", onTouchEnd, true);
-  document.addEventListener("touchmove", onTouchMove, true);
+  // document.addEventListener("touchstart", onTouchStart, true);
+  // document.addEventListener("touchend", onTouchEnd, true);
+  // document.addEventListener("touchmove", onTouchMove, true);
 
 
 // function onTouchStart(event){
@@ -36,10 +36,10 @@ function isMobile() {
 //   mY = event.pageY;
 // }
 
-function onTouchMove(event){
-  mX = event.pageX;
-  mY = event.pageY;
-}
+// function onTouchMove(event){
+//   mX = event.pageX;
+//   mY = event.pageY;
+// }
 
 // function onTouchEnd(event){
 //   mX = event.pageX;
@@ -85,6 +85,7 @@ function onLoaded(loader,res){
 });
 renderer.view.className = "rendererView";
   document.body.appendChild(renderer.view);
+   
     bg = PIXI.Sprite.fromImage('images/assets/img1.png');
     bg.width = windowWidth;
     bg.height = windowHeight;
@@ -111,6 +112,8 @@ function onAssetsLoaded () {
 }
 // ----------------------------------- DRAW
 function animate() { 
+  mX = renderer.plugins.interaction.mouse.global.x;
+   mY = renderer.plugins.interaction.mouse.global.y;
     color.update();
     filter.uniforms.time.value+=0.01;
     filter.uniforms.mX.value = mX;
