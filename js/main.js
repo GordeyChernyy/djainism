@@ -193,8 +193,10 @@ function setupButton () {
 
   buttonR.on('mouseover', function () { buttonR.texture = texButtonROver; });
   buttonR.on('mouseout', function () { buttonR.texture = texButtonR; });
-  buttonR.on('mouseup', changeSceneRight);
-  buttonR.on('touchstart', changeSceneRight);
+  buttonR.on('mouseup', changeSceneRight)
+         .on('touchstart', onButtonDown)
+         .on('touchend', onButtonUp)
+         .on('touchendoutside', onButtonUp);
 
   stage.addChild(buttonL);
   stage.addChild(buttonR);
@@ -203,7 +205,7 @@ function setupButton () {
 function onButtonDown()
 {
     this.isdown = true;
-    this.texture = textureButtonDown;
+    buttonR.texture = texButtonROver;
     this.alpha = 1;
 }
 
@@ -213,11 +215,11 @@ function onButtonUp()
 
     if (this.isOver)
     {
-        this.texture = textureButtonOver;
+        buttonR.texture = texButtonROver;
     }
     else
     {
-        this.texture = textureButton;
+        buttonR.texture = texButtonR; 
     }
 }
 
