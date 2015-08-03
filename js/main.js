@@ -208,7 +208,7 @@ function setupButton () {
 function onButtonDown()
 {
     this.isdown = true;
-    buttonR.texture = texButtonROver;
+    this.texture = texButtonROver;
     this.alpha = 1;
 }
 
@@ -218,11 +218,11 @@ function onButtonUp()
 
     if (this.isOver)
     {
-        buttonR.texture = texButtonROver;
+        this.texture = texButtonROver;
     }
     else
     {
-        buttonR.texture = texButtonR; 
+        this.texture = texButtonR; 
     }
 }
 
