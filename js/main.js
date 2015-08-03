@@ -31,20 +31,20 @@ function isMobile() {
   document.addEventListener("touchmove", onTouchMove, true);
 
 
-function onTouchStart(event){
-  mX = event.pageX;
-  mY = event.pageY;
-}
+// function onTouchStart(event){
+//   mX = event.pageX;
+//   mY = event.pageY;
+// }
 
 function onTouchMove(event){
   mX = event.pageX;
   mY = event.pageY;
 }
 
-function onTouchEnd(event){
-  mX = event.pageX;
-  mY = event.pageY;
-}
+// function onTouchEnd(event){
+//   mX = event.pageX;
+//   mY = event.pageY;
+// }
 
 
 var mX = 0;
