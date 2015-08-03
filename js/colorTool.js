@@ -1,8 +1,8 @@
 var ColorTool = function(){
-	this.color = color(0, 0, 0, 0);
-	this.r = 0;
-	this.g = 0;
-	this.b = 0;
+	// this.color = color(0, 0, 0, 0);
+	this.r = 0.0;
+	this.g = 0.0;
+	this.b = 0.0;
 	this.a = 0;
 };
 ColorTool.prototype.set = function(r, g, b, a, speed){
@@ -20,5 +20,5 @@ ColorTool.prototype.fade = function() {
 };	
 ColorTool.prototype.update = function(){
 	this.fade();
-	this.color = color(this.r, this.g, this.b, this.a);
+	// this.color = color(this.r, this.g, this.b, this.a);
 };

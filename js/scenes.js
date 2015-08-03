@@ -71,6 +71,7 @@ function sc1firstLoad() {
     sc1.get('tarWalk').moveToOrigin(150, 'linear');
     sc1.get('tarStop').setVisible(false);
     sc1.play();
+
 }
 
 function sc1Intro() {
@@ -139,7 +140,7 @@ function sc3Intro() {
     sc3.play();
     tarTalk.setVisible(true);
 	tarTalk.moveTo(27, 662, 50, 'cubic');
-	bubble.moveTo(200, 659, 559, 174, 100);
+	bubble.moveTo(200, 600, 559, 174, 100);
 }
 
 function sc3Update() {
@@ -177,7 +178,7 @@ function sc4Intro() {
     sc4.getByIndex(0).moveToOrigin(70, 'cubic');
     sc4.getByIndex(1).moveToOrigin(70, 'cubic');
     sc4.play();
-    bubble.moveTo(200, 659, 559, 174, 100);
+    bubble.moveTo(200, 600, 559, 174, 100);
 }
 
 function sc4Update() {
@@ -250,7 +251,7 @@ function sc5Intro() {
     sc5.get('eyeStone2').showAfterMove = false;
     sc5.play();
     tarTalk.moveTo(44, 666, 50, 'cubic');
-	bubble.moveTo(200, 659, 559, 174, 100);
+	bubble.moveTo(200, 600, 559, 174, 100);
 }
 function sc5Update() {
     sc5.update(mX, mY);
@@ -334,7 +335,7 @@ function sc7Intro() {
 	sc7.get('denySignRight').showAfterMove = false;	
 	sc7.play();
 	tarTalk.moveTo(35, 645, 50, 'cubic');
-	bubble.moveTo(200, 659, 559, 174, 100);
+	bubble.moveTo(200, 600, 559, 174, 100);
 }
 
 function sc7Update() {
@@ -380,7 +381,7 @@ function sc8Intro() {
 	sc8.moveAllToOrigin(20, 20, 'cubic');
 	sc8.play();
 	tarTalk.moveTo(44, 535, 50, 'cubic');
-	bubble.moveTo(200, 659, 559, 174, 100);
+	bubble.moveTo(200, 600, 559, 174, 100);
 }
 
 function sc8Update() {
@@ -398,4 +399,31 @@ function sc8Outro() {
 	hideElement('slider');
 	tarTalk.moveTo(323, 47, 100, 'cubic');
 	bubble.moveTo(112, 223, 573, 440, 100);
+}
+function col1(){
+	color.set(0.653061, 0.561224, 0.367347, 0, 0.01);
+}
+function col2(){
+	color.set(0.173469 , 0.632653 , 0.443878, 0, 0.01);
+}
+function col3(){
+	color.set(0.647959, 0.556122, 0.397959, 0, 0.01);
+}
+function col4(){
+	color.set(1.0, 0.142857, 0.311224, 0, 0.01);
+}
+function col5(){
+	color.set(0.403061, 0.72449, 0.5, 0, 0.01);
+}
+function col6(){
+	color.set(0.841837, 0.520408, 0.933673, 0, 0.01);
+}
+function col7(){
+	color.set(0.464286, 0.52551, 0.535714, 0, 0.01);
+}
+function col8(){
+	color.set(0.392857, 0.581633, 0.331633, 0, 0.01);
+}
+function col9(){
+	color.set(0.938776, 0.55102, 0.841837, 0, 0.01);
 }
