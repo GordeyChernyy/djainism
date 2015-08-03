@@ -15,29 +15,31 @@ PIXI.loader
     .load(onAssetsLoaded);
 
 // ----------------------------------- MOUSE
-var IE = document.all ? true : false;
-if (!IE) document.captureEvents(Event.MOUSEMOVE);
-document.onmousemove = getMouseXY;
+
+  document.addEventListener("touchstart", onTouchStart, true);
+  document.addEventListener("touchend", onTouchEnd, true);
+  document.addEventListener("touchmove", onTouchMove, true);
+
+
+function onTouchStart(event){
+  mX = event.pageX;
+  mY = event.pageY;
+}
+
+function onTouchMove(event){
+  mX = event.pageX;
+  mY = event.pageY;
+}
+
+function onTouchEnd(event){
+  mX = event.pageX;
+  mY = event.pageY;
+}
+
 
 var mX = 0;
 var mY = 0;
-function getMouseXY(e) {
-    if (IE) { // grab the x-y pos.s if browser is IE
-        mX = event.clientX + document.body.scrollLeft;
-        mY = event.clientY + document.body.scrollTop;
-    } else { // grab the x-y pos.s if browser is NS
-        mX = e.pageX;
-        mY = e.pageY;
-    }
-    if (mX < 0) {
-        mX = 0;
-    }
-    if (mY < 0) {
-        mY = 0;
-    }
-    return true;
-}
-// ----------------------------------- Shader
+// ---------------------------- Shader
 var shaderLoader = new PIXI.loaders.Loader();
 shaderLoader.add('shader','images/assets/shader.frag');
 shaderLoader.once('complete', onLoaded );
