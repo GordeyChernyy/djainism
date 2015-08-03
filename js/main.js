@@ -15,7 +15,17 @@ PIXI.loader
     .load(onAssetsLoaded);
 
 // ----------------------------------- MOUSE
-
+function isMobile() {
+    if (sessionStorage.desktop){ // desktop storage 
+        return false;
+      }
+    else if (localStorage.mobile){ // mobile storage
+        return true;
+      }
+    var mobile = ['iphone','ipad','android','blackberry','nokia','opera mini','windows mobile','windows phone','iemobile']; 
+    for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
+    return false;
+}
   document.addEventListener("touchstart", onTouchStart, true);
   document.addEventListener("touchend", onTouchEnd, true);
   document.addEventListener("touchmove", onTouchMove, true);
@@ -78,7 +88,7 @@ renderer.view.className = "rendererView";
     bg = PIXI.Sprite.fromImage('images/assets/img1.png');
     bg.width = windowWidth;
     bg.height = windowHeight;
-    // stage.addChild(bg);
+    if(!isMobile()) stage.addChild(bg);
     var fragmentSrc = res.shader.data;
     filter = new CustomFilter(fragmentSrc);
     filter.uniforms.width.value = windowWidth;
@@ -179,12 +189,12 @@ function setupButton () {
   buttonL.on('mouseover', function () {buttonL.texture = texButtonLOver; });
   buttonL.on('mouseout', function () {buttonL.texture = texButtonL; });
   buttonL.on('mouseup', changeSceneLeft);
-  buttonL.on('touchend', changeSceneLeft);
+  buttonL.on('touchstart', changeSceneLeft);
 
   buttonR.on('mouseover', function () { buttonR.texture = texButtonROver; });
   buttonR.on('mouseout', function () { buttonR.texture = texButtonR; });
   buttonR.on('mouseup', changeSceneRight);
-  buttonR.on('touchend', changeSceneRight);
+  buttonR.on('touchstart', changeSceneRight);
 
   stage.addChild(buttonL);
   stage.addChild(buttonR);
