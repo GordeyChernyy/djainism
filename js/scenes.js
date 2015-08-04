@@ -156,13 +156,23 @@ function sc3Outro() {
 function sc4Setup(){
 	sc4.get('princeToBuddha').setupAnimation(3, 4, 7);
 	sc4.get('prince').movie.interactive = true;
-	sc4.get('prince').movie.on('mouseover', function(){
+    sc4.get('prince').movie.on('mouseover', function(){
+        sc4.get('prince').setVisible(false);
+        sc4.get('princeToBuddha').setVisible(true);
+        sc4.get('princeToBuddha').playStart();
+    }); 	
+    sc4.get('prince').movie.on('touchstart', function(){
 		sc4.get('prince').setVisible(false);
 		sc4.get('princeToBuddha').setVisible(true);
 		sc4.get('princeToBuddha').playStart();
 	});	
 	sc4.get('princeToBuddha').movie.interactive = true;
-	sc4.get('princeToBuddha').movie.on('mouseout', function(){
+    sc4.get('princeToBuddha').movie.on('mouseout', function(){
+        // sc4.get('prince').setVisible(true);
+        sc4.get('princeToBuddha').hideAfterPlay = true;
+        sc4.get('princeToBuddha').playEnd();
+    });
+	sc4.get('princeToBuddha').movie.on('touchend', function(){
 		// sc4.get('prince').setVisible(true);
 		sc4.get('princeToBuddha').hideAfterPlay = true;
 		sc4.get('princeToBuddha').playEnd();
@@ -316,15 +326,15 @@ function sc7Setup(){
 	sc7.get('shovel').addButton(
 		function(){bOver(sc7, 'denySignLeft');},
 		function(){bOut(sc7, 'denySignLeft');});
-	sc7.get('shovel').setButtonToOrigin();
+	sc7.get('shovel').setButton(163, 41, 147, 285);
 	sc7.get('fish').addButton(
 		function(){bOver(sc7, 'denySignRight');},
 		function(){bOut(sc7, 'denySignRight');});
-	sc7.get('fish').setButtonToOrigin();
+	sc7.get('fish').setButton(527, 78, 70, 254);
 	sc7.get('faucet').addButton(
 		function(){sc7.get('filter').setVisible(true);},
 		function(){sc7.get('filter').setVisible(false);});
-	sc7.get('faucet').setButtonToOrigin();
+	sc7.get('faucet').setButton(355, 346, 164, 93);
 }
 function sc7Intro() {
 	sc7.showAfterMove();

@@ -6,7 +6,11 @@ var sc = 0; // key trigger
 var scUp = 0; // only when previos scene hide
 var isMove = false;
 var isSceneChange = false;
-
+var windowHeight = window.innerHeight;
+var windowWidth = window.innerWidth;
+var CANVAS_H = 866;
+var CANVAS_W = 797;
+var isScenesLoaded = false;
 stage = new PIXI.Container();
 PIXI.loader
     .add('images/assets/sprites1.json')
@@ -28,19 +32,15 @@ function isMobile() {
 }
   // document.addEventListener("touchstart", onTouchStart, true);
   // document.addEventListener("touchend", onTouchEnd, true);
-  // document.addEventListener("touchmove", onTouchMove, true);
-
-
+document.addEventListener("touchmove", onTouchMove, true);
 // function onTouchStart(event){
 //   mX = event.pageX;
 //   mY = event.pageY;
 // }
-
-// function onTouchMove(event){
-//   mX = event.pageX;
-//   mY = event.pageY;
-// }
-
+function onTouchMove(event){
+  mX = event.pageX;
+  mY = event.pageY;
+}
 // function onTouchEnd(event){
 //   mX = event.pageX;
 //   mY = event.pageY;
@@ -57,11 +57,8 @@ shaderLoader.load();
 function CustomFilter(fragmentSource)
 {
     PIXI.AbstractFilter.call(this,
-        // vertex shader
         null,
-        // fragment shader
         fragmentSource,
-        // set the uniforms
         {
             time : {type : '1f', value : 0},
             width : {type : '1f', value : 0},
@@ -79,17 +76,23 @@ CustomFilter.prototype.constructor = CustomFilter;
 
 var filter;
 var bg;
+var texLogo = PIXI.Texture.fromImage('images/assets/pattern.jpg');
+var logo;
 function onLoaded(loader,res){
   renderer = PIXI.autoDetectRenderer(windowWidth, windowHeight, {
-    backgroundColor: 0x1099bb
+    backgroundColor: 0xffffff
 });
 renderer.view.className = "rendererView";
   document.body.appendChild(renderer.view);
-   
     bg = PIXI.Sprite.fromImage('images/assets/img1.png');
     bg.width = windowWidth;
     bg.height = windowHeight;
-    if(!isMobile()) stage.addChild(bg);
+    logo = new PIXI.extras.TilingSprite(texLogo, renderer.width, renderer.height);
+    if(!isMobile()){
+      stage.addChild(bg);
+    }else{
+      stage.addChild(logo);
+    }
     var fragmentSrc = res.shader.data;
     filter = new CustomFilter(fragmentSrc);
     filter.uniforms.width.value = windowWidth;
@@ -99,28 +102,82 @@ renderer.view.className = "rendererView";
 // ----------------------------------- SETUP
 var bubble;
 var color;
+var langButton;
+window.onresize = windowResized;
 function onAssetsLoaded () {
-    bubbleSetup();
     loadScenes();
-    setupButton();
     bubble = new Bubble();
     bubble.setup(320, 50, 419, 178);
-    bubble.sc1();
+    bubble.moveTo(320, 50, 419, 178, 100);
+    bubble.setText();
+    bubble.changeText(0);
     color = new ColorTool();
     color.set(0.653061, 0.561224, 0.367347, 0, 0.2);
+    setupButton();
     animate();
+    langSwitch();
+    isScenesLoaded = true;
 }
+function langSwitch(){
+  langButton = document.createElement("BUTTON");
+  langButton.onclick = changeLang;
+  langButton.innerHTML = 'RU';
+  langButton.style.position = "fixed";
+  langButton.style.left = "50px";
+  langButton.style.top = "50px";
+  langButton.style.width = "50px";
+  langButton.style.height = '30px';   
+  document.body.appendChild(langButton);
+}
+function changeLang(){
+  bubble.changeLanguage(sc);
+}
+function windowResized(){
+    if (isScenesLoaded) {
+        windowHeight = window.innerHeight;
+        windowWidth = window.innerWidth;
+        renderer.resize(windowWidth, windowHeight);
+        logo.width = windowWidth;
+        logo.height = windowHeight;
+        bg.width = windowWidth;
+        bg.height = windowHeight;
+        filter.uniforms.width.value = windowWidth;
+        filter.uniforms.height.value = windowHeight;
+        var translate = new Translate(290, 495, 261, 23);
+        slider.style.left = translate.x + 'px';
+        slider.style.top = translate.y + 'px';
+        slider.style.width = translate.w + 'px';
+        var left = new Translate(51, 386, 73, 123);
+        var right = new Translate(683, 388, 65, 118);
+        buttonL.set(windowWidth / 15, left.y, left.w, left.h);
+        buttonR.set(windowWidth - windowWidth / 15 - right.w, right.y, left.w, left.h);
+        bubble.resize();
+        tarTalk.resize();
+        print('window resized');
+        sc1.resize();
+        sc2.resize();
+        sc3.resize();
+        sc4.resize();
+        sc5.resize();
+        sc6.resize();
+        sc7.resize();
+        sc8.resize();
+    }
+}
+
 // ----------------------------------- DRAW
 function animate() { 
-  mX = renderer.plugins.interaction.mouse.global.x;
-   mY = renderer.plugins.interaction.mouse.global.y;
     color.update();
-    filter.uniforms.time.value+=0.01;
-    filter.uniforms.mX.value = mX;
-    filter.uniforms.mY.value = mY;
-    filter.uniforms._r.value = color.r;
-    filter.uniforms._g.value = color.g;
-    filter.uniforms._b.value = color.b;
+    if (!isMobile()) {
+        mX = renderer.plugins.interaction.mouse.global.x;
+        mY = renderer.plugins.interaction.mouse.global.y;
+        filter.uniforms.time.value += 0.01;
+        filter.uniforms.mX.value = mX;
+        filter.uniforms.mY.value = mY;
+        filter.uniforms._r.value = color.r;
+        filter.uniforms._g.value = color.g;
+        filter.uniforms._b.value = color.b;
+    }
     tarTalk.move();
     tarTalk.update();
     bubble.update();
@@ -159,9 +216,27 @@ function render () {
     requestAnimationFrame(animate);
 }
 // ----------------------------------- SCENE MANAGMENT  
-
-
-
+// window.onload = onWinLoad;
+var buttonL;
+var buttonR;
+var texButtonL = PIXI.Texture.fromImage('images/assets/button/buttonL.png');
+var texButtonLOver = PIXI.Texture.fromImage('images/assets/button/buttonLOver.png');
+var texButtonR = PIXI.Texture.fromImage('images/assets/button/buttonR.png');
+var texButtonROver = PIXI.Texture.fromImage('images/assets/button/buttonROver.png');
+function noop(){}
+function setupButton () {
+  var left = new Translate(51, 386, 73, 123);
+  var right = new Translate(683, 388, 65, 118);
+  buttonL = new Button(noop, changeSceneLeft, noop, 
+                       texButtonL, texButtonLOver, texButtonLOver);
+  buttonL.set(windowWidth/15, left.y, left.w, left.h);
+  buttonR = new Button(noop, changeSceneRight, noop, 
+                       texButtonR, texButtonROver, texButtonROver);
+  buttonR.set(windowWidth-windowWidth/15-right.w, right.y, left.w, left.h);
+}
+function test(){
+   print('test');
+}
 function changeSceneLeft () {
   if (!isMove && sc>0) {
     sc--;
@@ -206,14 +281,14 @@ function SceneCheck(_sc){
 }
 function sceneChangeIntro(_sc){
   switch(_sc){
-    case 0: sc1Intro(); bubble.sc1(); col1(); break;
-    case 1: sc2Intro(); bubble.sc2(); col2(); break;
-    case 2: sc3Intro(); bubble.sc3(); col3(); break;
-    case 3: sc4Intro(); bubble.sc4(); col4(); break;
-    case 4: sc5Intro(); bubble.sc5(); col5(); break;
-    case 5: sc6Intro(); bubble.sc6(); col6(); break;
-    case 6: sc7Intro(); bubble.sc7(); col7(); break;
-    case 7: sc8Intro(); bubble.sc8(); col8(); break;
+    case 0: sc1Intro(); bubble.changeText(_sc); col1(); break;
+    case 1: sc2Intro(); bubble.changeText(_sc); col2(); break;
+    case 2: sc3Intro(); bubble.changeText(_sc); col3(); break;
+    case 3: sc4Intro(); bubble.changeText(_sc); col4(); break;
+    case 4: sc5Intro(); bubble.changeText(_sc); col5(); break;
+    case 5: sc6Intro(); bubble.changeText(_sc); col6(); break;
+    case 6: sc7Intro(); bubble.changeText(_sc); col7(); break;
+    case 7: sc8Intro(); bubble.changeText(_sc); col8(); break;
     default: break;
   }
 }
@@ -226,7 +301,7 @@ function sceneChangeOutro(_sc){
     case 4: sc5Outro(); break;
     case 5: sc6Outro(); break;
     case 6: sc7Outro(); break;
-    case 7: sc8Outro(); bubble.sc9(); col9(); break;
+    case 7: sc8Outro(); bubble.changeText(8); col9(); break;
     default: break;
   }
 }

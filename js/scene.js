@@ -72,6 +72,11 @@ Scene.prototype.setAllTop = function(animationType) { // smooth, line
         this.sprites[i].setTop();
     }
 };
+Scene.prototype.resize = function() {
+    for (var i = 0; i < this.sprites.length; i++) {
+        this.sprites[i].resize();
+    }
+};
 Scene.prototype.showCurrent = function(id) {
     for (var i = 0; i < this.sprites.length; i++) {
         if (this.sprites[i].id === id) {

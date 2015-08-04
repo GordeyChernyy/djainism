@@ -13,117 +13,12 @@
    	<script language="javascript" type="text/javascript" src="js/colorTool.js"></script>
    	<script language="javascript" type="text/javascript" src="js/animation.js"></script>
    	<script language="javascript" type="text/javascript" src="js/utilities.js"></script>
-    <script>
+   	<script language="javascript" type="text/javascript" src="js/button.js"></script>
+<!--     <script>
         document.addEventListener("touchmove",function(event){event.preventDefault();});
-        </script>
+        </script> -->
 </head>
 
 <body bgcolor="#ffffff" class="body">
 	<div class="background"></div>
-	<p id="bubble1" class="bubble">Привет! Это — интерактивный комикс про <b>джайнизм</b>, древнюю и очень интересную восточную религию. Чтобы переключаться между экранами, жми кнопки справа и слева. Некоторые элементы комикса интерактивны — они так и ждут, когда ты наведешь на них мышку. Попробуй!</p>
-	<p id="bubble2" class="bubble bottomCenter">Привет, меня зовут Тараканджа, живу я в Индии. Я ооочень стар: мне 102 года! Интересно, как я дожил до таких лет? Все благодаря моим землякам <b>джайнам</b> и их религии!</p>
-	
-	<p id="bubble3" class="bubble left">Джайны — представители религии экстремального ненасилия. Последователей джайнизма сейчас около двух миллионов, живут они в основном в Индии. Религия <b>запрещает им вредить всем живым существам, даже самым маленьким</b>. Джайны даже подметают путь перед собой, чтобы случайно не наступить на насекомое.</p>
-	
-	<p id="bubble4" class="bubble left">Основатель джайнизма — <b>принц Махавира</b>, жил в IX в. до нашей эры. Как и Будда, он отказался от царства ради <b>аскетического пути и философских исследований</b>. В глубоких медитациях ему открылась истина джайнизма.</p>
-	
-	<p id="bubble5" class="bubble left">Согласно джайнизму, весь мир состоит из одушевленных существ, страдающих и испытывающих боль. <b>Весь мир страдает, а больше всего в нем — человек</b>. </p>
-	
-	<p id="bubble6" class="bubble right">Только <b>бережное и трепетное отношение ко всему живому</b> может помочь человеку освободиться из круга перерождений и страдания.</p>
-	
-	<p id="bubble7" class="bubble left">Джайны процеживают питьевую воду, чтобы отфильтровать любые живые организмы. Им запрещено ловить рыбу и обрабатывать землю: вместо этого они успешно занимаются торговлей (и ведут бизнес, следуя принципам честности и справедливости).</p>
-	
-	<p id="bubble8" class="bubble left"> Джайны заканчивают свою жизнь добровольным отказом от еды, таким образом символически пытаясь уменьшить степень вреда, нанесенного в течение прожитого времени.</p>
-	<p id="bubble9" class="bubble top">Вот такие необычные и интересные эти джайны, гаранты моего долголетия! <b>Подумай, а как бы ты организовал свою жизнь, зная, что все существующее в мире живет и страдает?</b> В том числе камень, который ты пнул по дороге домой, бургер, съеденный на обед (был коровой!) и даже микробы, которых ты отправил в небытие, помыв руки? Почему ложь, по логике джайнов, приносит вред окружающему миру? Что полезного и актуального можно позаимствовать у религии джайнов? </p>
-<script type="text/javascript">
-	var buttonL;
-var buttonR;
-var texButtonL = PIXI.Texture.fromImage('images/assets/button/buttonL.png');
-var texButtonLOver = PIXI.Texture.fromImage('images/assets/button/buttonLOver.png');
-var texButtonR = PIXI.Texture.fromImage('images/assets/button/buttonR.png');
-var texButtonROver = PIXI.Texture.fromImage('images/assets/button/buttonROver.png');
-function setupButton () {
-
-  var left = new Translate(51, 386, 73, 123);
-  var right = new Translate(683, 388, 65, 118);
-  
-  buttonL =  new PIXI.Sprite(texButtonL);
-  buttonL.buttonMode = true;
-  buttonR = new PIXI.Sprite(texButtonR);
-  buttonR.buttonMode = true;
-
-  buttonL.width = left.w;
-  buttonL.height = left.h;
-  buttonL.position.x = windowWidth/15;
-  buttonL.position.y = left.y;
-  
-  buttonL.interactive = true;
-  buttonR.interactive = true;
-
-  buttonR.width = right.w;
-  buttonR.height = right.h;
-  buttonR.position.x = windowWidth-windowWidth/15-right.w;
-  buttonR.position.y = right.y;
-
-  buttonL.on('mouseover', function () {buttonL.texture = texButtonLOver; });
-  buttonL.on('mouseout', function () {buttonL.texture = texButtonL; });
-  buttonL.on('mouseup', changeSceneLeft);
-  buttonL.on('touchstart', changeSceneLeft);
-
-  buttonR.on('mouseover', function () { buttonR.texture = texButtonROver; });
-  buttonR.on('mouseout', function () { buttonR.texture = texButtonR; });
-  buttonR.on('mouseup', changeSceneRight)
-         .on('touchstart', onButtonDown)
-         .on('touchend', onButtonUp)
-         .on('touchendoutside', onButtonUp);
-
-  stage.addChild(buttonL);
-  stage.addChild(buttonR);
-}
-
-function onButtonDown()
-{
-    this.isdown = true;
-    this.texture = texButtonROver;
-    this.alpha = 1;
-}
-
-function onButtonUp()
-{
-    this.isdown = false;
-
-    if (this.isOver)
-    {
-        this.texture = texButtonROver;
-    }
-    else
-    {
-        this.texture = texButtonR; 
-    }
-}
-
-function onButtonOver()
-{
-    this.isOver = true;
-
-    if (this.isdown)
-    {
-        return;
-    }
-
-    this.texture = textureButtonOver;
-}
-
-function onButtonOut()
-{
-    this.isOver = false;
-
-    if (this.isdown)
-    {
-        return;
-    }
-
-    this.texture = textureButton;
-}
-</script>
 </html>

@@ -9,13 +9,20 @@ Sprite.prototype.addButton = function(funOver, funOut){
     this.button = new PIXI.Sprite(tex);
     this.button.alpha = 0;
     this.button.visible = false;
+    this.button.buttonMode = true;
     this.button.interactive = true;
     this.button.on('mouseover', funOver);
     this.button.on('mouseout', funOut);
+    this.button.on('touchstart', funOver);
+    this.button.on('touchend', funOut);
     stage.addChild(this.button);
 };
 Sprite.prototype.setButton = function(x, y, w, h){
     var translate = new Translate(x, y, w, h);
+    this.rootbuttonX = x;
+    this.rootbuttonY = y;
+    this.rootbuttonH = h;
+    this.rootbuttonW = w;    
     this.buttonX = translate.x;
     this.buttonY = translate.y;
     this.buttonH = translate.h;
@@ -28,6 +35,10 @@ Sprite.prototype.setButtonToOrigin = function(){
     this.buttonY = this.y;
     this.buttonH = this.h;
     this.buttonW = this.w;
+    this.rootbuttonX = this.rootX;
+    this.rootbuttonY = this.rootY;
+    this.rootbuttonH = this.rootW;
+    this.rootbuttonW = this.rootH;
     this.button.width = this.w;
     this.button.height = this.h;
 };
@@ -52,6 +63,10 @@ Sprite.prototype.load = function(path, frameCount) {
 };
 Sprite.prototype.set = function(id, x, y, w, h, paralaxScale) {
     this.id = id;
+    this.rootX = x;
+    this.rootY = y;
+    this.rootW = w;
+    this.rootH = h;
     var translate = new Translate(x, y, w, h);
     this.x = translate.x;
     this.y = translate.y;
@@ -70,6 +85,27 @@ Sprite.prototype.set = function(id, x, y, w, h, paralaxScale) {
     this.hideAfterMove = false; // trigger visiblity
     this.showAfterMove = false;
     this.button = null;
+};
+Sprite.prototype.resize = function() {
+    var translate = new Translate(this.rootX, this.rootY, this.rootW, this.rootH);
+    this.x = translate.x;
+    this.y = translate.y;
+    this.originX = this.x; // to remember first pos
+    this.originY = this.y; // to remember first pos
+    this.w = translate.w;
+    this.h = translate.h;
+    this.movie.width = this.w;
+    this.movie.height = this.h;    
+    if (this.button!==null) {
+        print('button');
+        var btranslate = new Translate(this.rootbuttonX, this.rootbuttonY, this.rootbuttonW, this.rootbuttonH);
+        this.buttonX = btranslate.x;
+        this.buttonY = btranslate.y;
+        this.buttonH = btranslate.h;
+        this.buttonW = btranslate.w;
+        this.button.width = btranslate.w;
+        this.button.height = btranslate.h;        
+    }
 };
 Sprite.prototype.setVisible = function(isVisible) {
     this.movie.visible = isVisible;
@@ -196,10 +232,7 @@ Sprite.prototype.move = function() {
       this.isMove = false;
     }
 };
-var windowHeight = window.innerHeight;
-var windowWidth = window.innerWidth;
-var CANVAS_H = 866;
-var CANVAS_W = 797;
+
 
 var Translate = function(x, y, w, h) { // convert coordinates to fit window
     var canvasScaledWidth = (windowHeight * CANVAS_W) / CANVAS_H;
